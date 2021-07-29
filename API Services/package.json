@@ -1,0 +1,22 @@
+{
+  "name": "api-services",
+  "version": "1.0.0",
+  "description": "Aplicacíon de servicio tecnico para Zero Informatica",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "author": "Rodrigo Romero",
+  "license": "ISC",
+  "dependencies": {
+    "@thiagoelg/node-printer": "^0.5.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ipp": "^2.0.1",
+    "mongoose": "^5.12.12",
+    "mongoose-sequence": "^5.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
