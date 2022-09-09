@@ -21,7 +21,7 @@ const corsOptions = {
 };
 
 // Habilitar cors
-app.use(cors());
+//app.use(cors());
 
 // Conectar a mongodb
 
