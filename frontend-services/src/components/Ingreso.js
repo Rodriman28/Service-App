@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import clienteAxios from '../config/axios';
-import jsPDF from 'jspdf';
+import React, { Fragment } from "react";
+import { Link, withRouter } from "react-router-dom";
+import Swal from "sweetalert2";
+import clienteAxios from "../config/axios";
+import jsPDF from "jspdf";
 
-
+//prettier-ignore
 const Ingreso = (props) => {
 
     if (!props.ingreso) {
@@ -246,6 +246,8 @@ doc.output('pdfobjectnewwindow');
                                     <li><button className="dropdown-item" type="button" onClick={ () => cambiarEstado('Entregado-Reparado',_id)}>Entregado-Reparado</button></li>
                                     <li><button className="dropdown-item" type="button" onClick={ () => cambiarEstado('Entregado-Sin Arreglo',_id)}>Entregado-Sin Arreglo</button></li>
                                     <li><button className="dropdown-item" type="button" onClick={ () => cambiarEstado('Nuevo',_id)}>Nuevo</button></li>
+                                    <li><button className="dropdown-item" type="button" onClick={ () => cambiarEstado('Avisado',_id)}>Avisado</button></li>
+
                                     </ul>
                                 </div>
                             </div>
