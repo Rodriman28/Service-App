@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
+import Header from "./Header";
 import Swal from "sweetalert2";
 import clienteAxios from "../config/axios";
 import { generarPDFService } from "../utils/pdfGenerator";
@@ -145,17 +146,13 @@ const Ingreso = (props) => {
   return (
     <Fragment>
       {/* Encabezado */}
-      <header className="app-header py-3 mb-4">
-        <div className="container-fluid d-flex justify-content-between align-items-center px-md-5">
-          <div className="d-flex align-items-center gap-2">
-            <i className="bi bi-cpu text-primary fs-3"></i>
-            <h1 className="h3 mb-0 font-weight-bold text-white">Zero Informática</h1>
-          </div>
+      <Header
+        rightElement={
           <Link to={"/"} className="btn btn-secondary btn-sm">
             <i className="bi bi-arrow-left"></i> Panel Principal
           </Link>
-        </div>
-      </header>
+        }
+      />
 
       <div className="container py-3">
         <div className="row justify-content-center">

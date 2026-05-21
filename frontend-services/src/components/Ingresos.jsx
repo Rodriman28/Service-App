@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   const [busqueda, guardarBusqueda] = useState("");
@@ -14,25 +15,17 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   if (cargando) {
     return (
       <Fragment>
-        <header className="app-header py-3 mb-4">
-          <div className="container-fluid d-flex justify-content-between align-items-center px-md-5">
-            <div className="d-flex align-items-center gap-2">
-              <i className="bi bi-cpu text-primary fs-3"></i>
-              <h1 className="h3 mb-0 font-weight-bold text-white">Zero Informática</h1>
-            </div>
-            <div className="d-flex align-items-center gap-4">
-              <Link to="/" className="text-white text-decoration-none fw-semibold border-bottom border-primary pb-1">
-                <i className="bi bi-tools text-primary"></i> Services
-              </Link>
-              <Link to="/clientes" className="text-muted text-decoration-none fw-semibold">
-                <i className="bi bi-people"></i> Clientes
-              </Link>
-            </div>
-          </div>
-        </header>
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+      <Header active="services" />
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ minHeight: "60vh" }}
+        >
           <div className="text-center">
-            <div className="spinner-border text-primary fs-4" role="status" style={{ width: '3rem', height: '3rem' }}>
+            <div
+              className="spinner-border text-primary fs-4"
+              role="status"
+              style={{ width: "3rem", height: "3rem" }}
+            >
               <span className="visually-hidden">Cargando...</span>
             </div>
             <p className="text-muted mt-3 fw-semibold">Cargando servicios...</p>
@@ -45,22 +38,7 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   if (ingresos.length === 0) {
     return (
       <Fragment>
-        <header className="app-header py-3 mb-4">
-          <div className="container-fluid d-flex justify-content-between align-items-center px-md-5">
-            <div className="d-flex align-items-center gap-2">
-              <i className="bi bi-cpu text-primary fs-3"></i>
-              <h1 className="h3 mb-0 font-weight-bold text-white">Zero Informática</h1>
-            </div>
-            <div className="d-flex align-items-center gap-4">
-              <Link to="/" className="text-white text-decoration-none fw-semibold border-bottom border-primary pb-1">
-                <i className="bi bi-tools text-primary"></i> Services
-              </Link>
-              <Link to="/clientes" className="text-muted text-decoration-none fw-semibold">
-                <i className="bi bi-people"></i> Clientes
-              </Link>
-            </div>
-          </div>
-        </header>
+        <Header active="services" />
         <div className="container py-5 text-center text-muted">
           <i className="bi bi-tools fs-1 mb-3 d-block"></i>
           <h3 className="text-white mb-3">No hay servicios registrados</h3>
@@ -77,7 +55,8 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
     // Si la opción de ocultar está activa y el estado es entregado, lo filtramos fuera
     if (
       ocultarEntregados &&
-      (ingreso.estado === "Entregado-Reparado" || ingreso.estado === "Entregado-Sin Arreglo")
+      (ingreso.estado === "Entregado-Reparado" ||
+        ingreso.estado === "Entregado-Sin Arreglo")
     ) {
       return false;
     }
@@ -101,7 +80,10 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   // Paginación del lado del cliente
   const totalPaginas = Math.ceil(filteredIngresos.length / ITEMS_POR_PAGINA);
   const indexInicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
-  const ingresosPaginados = filteredIngresos.slice(indexInicio, indexInicio + ITEMS_POR_PAGINA);
+  const ingresosPaginados = filteredIngresos.slice(
+    indexInicio,
+    indexInicio + ITEMS_POR_PAGINA,
+  );
 
   const cambiarBusqueda = (e) => {
     guardarBusqueda(e.target.value);
@@ -109,9 +91,15 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   };
 
   // Métricas rápidas
-  const nuevos = ingresos.filter(i => i.estado === 'Nuevo' || i.estado === 'Ingresado' || !i.estado || i.estado === '').length;
-  const reparados = ingresos.filter(i => i.estado === 'Reparado').length;
-  const avisados = ingresos.filter(i => i.estado === 'Avisado').length;
+  const nuevos = ingresos.filter(
+    (i) =>
+      i.estado === "Nuevo" ||
+      i.estado === "Ingresado" ||
+      !i.estado ||
+      i.estado === "",
+  ).length;
+  const reparados = ingresos.filter((i) => i.estado === "Reparado").length;
+  const avisados = ingresos.filter((i) => i.estado === "Avisado").length;
 
   const getBadgeClass = (estado) => {
     switch (estado) {
@@ -134,22 +122,7 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
   return (
     <Fragment>
       {/* Encabezado */}
-      <header className="app-header py-3 mb-4">
-        <div className="container-fluid d-flex justify-content-between align-items-center px-md-5">
-          <div className="d-flex align-items-center gap-2">
-            <i className="bi bi-cpu text-primary fs-3"></i>
-            <h1 className="h3 mb-0 font-weight-bold text-white">Zero Informática</h1>
-          </div>
-          <div className="d-flex align-items-center gap-4">
-            <Link to="/" className="text-white text-decoration-none fw-semibold border-bottom border-primary pb-1">
-              <i className="bi bi-tools text-primary"></i> Services
-            </Link>
-            <Link to="/clientes" className="text-muted text-decoration-none fw-semibold">
-              <i className="bi bi-people"></i> Clientes
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header active="services" />
 
       <div className="container-fluid px-md-5">
         {/* Panel de Métricas (KPIs) */}
@@ -157,7 +130,9 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           <div className="col-12 col-sm-6 col-lg-3">
             <div className="card card-glass kpi-card">
               <div>
-                <span className="text-muted small text-uppercase fw-bold">Pendientes</span>
+                <span className="text-muted small text-uppercase fw-bold">
+                  Pendientes
+                </span>
                 <div className="kpi-val text-primary">{nuevos}</div>
               </div>
               <div className="kpi-icon bg-primary bg-opacity-10 text-primary">
@@ -168,7 +143,9 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           <div className="col-12 col-sm-6 col-lg-3">
             <div className="card card-glass kpi-card">
               <div>
-                <span className="text-muted small text-uppercase fw-bold">Reparados (Listos)</span>
+                <span className="text-muted small text-uppercase fw-bold">
+                  Reparados (Listos)
+                </span>
                 <div className="kpi-val text-success">{reparados}</div>
               </div>
               <div className="kpi-icon bg-success bg-opacity-10 text-success">
@@ -179,7 +156,9 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           <div className="col-12 col-sm-6 col-lg-3">
             <div className="card card-glass kpi-card">
               <div>
-                <span className="text-muted small text-uppercase fw-bold">Avisados</span>
+                <span className="text-muted small text-uppercase fw-bold">
+                  Avisados
+                </span>
                 <div className="kpi-val text-info">{avisados}</div>
               </div>
               <div className="kpi-icon bg-info bg-opacity-10 text-info">
@@ -190,7 +169,9 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           <div className="col-12 col-sm-6 col-lg-3">
             <div className="card card-glass kpi-card">
               <div>
-                <span className="text-muted small text-uppercase fw-bold">Total Cargados</span>
+                <span className="text-muted small text-uppercase fw-bold">
+                  Total Cargados
+                </span>
                 <div className="kpi-val text-white">{ingresos.length}</div>
               </div>
               <div className="kpi-icon bg-secondary bg-opacity-10 text-white">
@@ -217,9 +198,12 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
               />
             </div>
             <div className="text-muted small mt-2 ms-1">
-              {filteredIngresos.length} servicio{filteredIngresos.length !== 1 ? 's' : ''} encontrado{filteredIngresos.length !== 1 ? 's' : ''}
+              {filteredIngresos.length} servicio
+              {filteredIngresos.length !== 1 ? "s" : ""} encontrado
+              {filteredIngresos.length !== 1 ? "s" : ""}
               {busqueda && ` para "${busqueda}"`}
-              {totalPaginas > 1 && ` — Página ${paginaActual} de ${totalPaginas}`}
+              {totalPaginas > 1 &&
+                ` — Página ${paginaActual} de ${totalPaginas}`}
             </div>
           </div>
           <div className="col-12 col-md-3 d-flex align-items-center">
@@ -233,9 +217,13 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
                   setOcultarEntregados(e.target.checked);
                   setPaginaActual(1);
                 }}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               />
-              <label className="form-check-label text-muted small fw-semibold ms-2" htmlFor="flexSwitchCheckDefault" style={{ cursor: 'pointer', userSelect: 'none' }}>
+              <label
+                className="form-check-label text-muted small fw-semibold ms-2"
+                htmlFor="flexSwitchCheckDefault"
+                style={{ cursor: "pointer", userSelect: "none" }}
+              >
                 Ocultar Entregados
               </label>
             </div>
@@ -261,34 +249,51 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
                   <th scope="col">Precio / Seña</th>
                   <th scope="col">Fecha</th>
                   <th scope="col">Estado</th>
-                  <th scope="col" className="text-center">Acciones</th>
+                  <th scope="col" className="text-center">
+                    Acciones
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {ingresosPaginados.map((ingreso) => (
                   <tr key={ingreso.id}>
-                    <td className="fw-bold text-white">#{ingreso.numero_service}</td>
+                    <td className="fw-bold text-white">
+                      #{ingreso.numero_service}
+                    </td>
                     <td>
-                      <div className="fw-bold text-white">{ingreso.nombre_c} {ingreso.apellido_c}</div>
+                      <div className="fw-bold text-white">
+                        {ingreso.nombre_c} {ingreso.apellido_c}
+                      </div>
                     </td>
                     <td className="text-muted">{ingreso.telefono}</td>
                     <td>
                       <div className="text-white">{ingreso.marca}</div>
                       <div className="small text-muted">{ingreso.modelo}</div>
                     </td>
-                    <td className="text-muted text-truncate" style={{ maxWidth: '150px' }}>
+                    <td
+                      className="text-muted text-truncate"
+                      style={{ maxWidth: "150px" }}
+                    >
                       {ingreso.falla}
                     </td>
                     <td>
-                      <div className="fw-bold text-success">${ingreso.precio}</div>
+                      <div className="fw-bold text-success">
+                        ${ingreso.precio}
+                      </div>
                       {parseInt(ingreso.seña || 0) > 0 && (
-                        <div className="small text-muted">Seña: ${ingreso.seña}</div>
+                        <div className="small text-muted">
+                          Seña: ${ingreso.seña}
+                        </div>
                       )}
                     </td>
-                    <td className="small text-muted">{ingreso.fecha_ingreso}</td>
+                    <td className="small text-muted">
+                      {ingreso.fecha_ingreso}
+                    </td>
                     <td>
-                      <span className={`badge-state ${getBadgeClass(ingreso.estado)}`}>
-                        {ingreso.estado || 'Nuevo'}
+                      <span
+                        className={`badge-state ${getBadgeClass(ingreso.estado)}`}
+                      >
+                        {ingreso.estado || "Nuevo"}
                       </span>
                     </td>
                     <td className="text-center">
@@ -311,38 +316,55 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           {ingresosPaginados.map((ingreso) => (
             <div key={ingreso.id} className="card card-glass mb-3 p-3">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <span className="fw-bold text-white fs-5">#{ingreso.numero_service}</span>
-                <span className={`badge-state ${getBadgeClass(ingreso.estado)}`}>
-                  {ingreso.estado || 'Nuevo'}
+                <span className="fw-bold text-white fs-5">
+                  #{ingreso.numero_service}
+                </span>
+                <span
+                  className={`badge-state ${getBadgeClass(ingreso.estado)}`}
+                >
+                  {ingreso.estado || "Nuevo"}
                 </span>
               </div>
               <div className="mobile-card-row">
                 <span className="mobile-card-label">Cliente:</span>
-                <span className="mobile-card-value text-white">{ingreso.nombre_c} {ingreso.apellido_c}</span>
+                <span className="mobile-card-value text-white">
+                  {ingreso.nombre_c} {ingreso.apellido_c}
+                </span>
               </div>
               <div className="mobile-card-row">
                 <span className="mobile-card-label">Teléfono:</span>
-                <span className="mobile-card-value text-muted">{ingreso.telefono}</span>
+                <span className="mobile-card-value text-muted">
+                  {ingreso.telefono}
+                </span>
               </div>
               <div className="mobile-card-row">
                 <span className="mobile-card-label">Equipo:</span>
-                <span className="mobile-card-value text-white">{ingreso.marca} {ingreso.modelo}</span>
+                <span className="mobile-card-value text-white">
+                  {ingreso.marca} {ingreso.modelo}
+                </span>
               </div>
               <div className="mobile-card-row">
                 <span className="mobile-card-label">Falla:</span>
-                <span className="mobile-card-value text-muted text-truncate" style={{ maxWidth: '200px' }}>
+                <span
+                  className="mobile-card-value text-muted text-truncate"
+                  style={{ maxWidth: "200px" }}
+                >
                   {ingreso.falla}
                 </span>
               </div>
               <div className="mobile-card-row">
                 <span className="mobile-card-label">Precio/Seña:</span>
                 <span className="mobile-card-value text-success fw-bold">
-                  ${ingreso.precio} {parseInt(ingreso.seña || 0) > 0 && `(Seña: $${ingreso.seña})`}
+                  ${ingreso.precio}{" "}
+                  {parseInt(ingreso.seña || 0) > 0 &&
+                    `(Seña: $${ingreso.seña})`}
                 </span>
               </div>
               <div className="mobile-card-row mb-3">
                 <span className="mobile-card-label">Fecha:</span>
-                <span className="mobile-card-value text-muted small">{ingreso.fecha_ingreso}</span>
+                <span className="mobile-card-value text-muted small">
+                  {ingreso.fecha_ingreso}
+                </span>
               </div>
               <Link
                 to={`/ingreso/${ingreso.id}`}
@@ -368,20 +390,21 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
             <button
               className="btn btn-secondary btn-sm"
               disabled={paginaActual === 1}
-              onClick={() => setPaginaActual(prev => prev - 1)}
+              onClick={() => setPaginaActual((prev) => prev - 1)}
             >
               <i className="bi bi-chevron-left"></i>
             </button>
 
             {Array.from({ length: Math.min(5, totalPaginas) }, (_, i) => {
               let start = Math.max(1, paginaActual - 2);
-              if (start + 4 > totalPaginas) start = Math.max(1, totalPaginas - 4);
+              if (start + 4 > totalPaginas)
+                start = Math.max(1, totalPaginas - 4);
               const page = start + i;
               if (page > totalPaginas) return null;
               return (
                 <button
                   key={page}
-                  className={`btn btn-sm ${page === paginaActual ? 'btn-primary' : 'btn-secondary'}`}
+                  className={`btn btn-sm ${page === paginaActual ? "btn-primary" : "btn-secondary"}`}
                   onClick={() => setPaginaActual(page)}
                 >
                   {page}
@@ -392,7 +415,7 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
             <button
               className="btn btn-secondary btn-sm"
               disabled={paginaActual === totalPaginas}
-              onClick={() => setPaginaActual(prev => prev + 1)}
+              onClick={() => setPaginaActual((prev) => prev + 1)}
             >
               <i className="bi bi-chevron-right"></i>
             </button>
@@ -407,7 +430,9 @@ const Ingresos = ({ ingresos, cargando, guardarConsultar }) => {
           </div>
         )}
         <div className="text-center text-muted mt-3 mb-4 small">
-          Mostrando del {filteredIngresos.length === 0 ? 0 : indexInicio + 1} al {Math.min(indexInicio + ITEMS_POR_PAGINA, filteredIngresos.length)} de {filteredIngresos.length} servicios
+          Mostrando del {filteredIngresos.length === 0 ? 0 : indexInicio + 1} al{" "}
+          {Math.min(indexInicio + ITEMS_POR_PAGINA, filteredIngresos.length)} de{" "}
+          {filteredIngresos.length} servicios
         </div>
       </div>
     </Fragment>
