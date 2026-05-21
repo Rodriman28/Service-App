@@ -1,0 +1,4 @@
+numero_service,nombre_c,apellido_c,telefono,fecha_ingreso,hora_ingreso,marca,modelo,falla,precio,seña,estado
+1,Juan,Perez,099123456,18/05/2026,10:30,Samsung,A51,Pantalla rota,15000,5000,Recibido
+2,Maria,Gonzalez,098765432,18/05/2026,11:00,Apple,iPhone 12,Bateria,12000,3000,En proceso
+3,Carlos,Rodriguez,097654321,18/05/2026,14:15,Lenovo,ThinkPad,No enciende,8000,2000,Terminado

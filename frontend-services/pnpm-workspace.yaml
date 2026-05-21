@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: true
+  core-js-pure: set this to true or false
+  ejs: true
+  es5-ext: true
+  esbuild: true

@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  # ── Backend: Express + sql.js ──
+  backend:
+    build:
+      context: ./API Services
+      dockerfile: Dockerfile
+    container_name: service-app-backend
+    restart: unless-stopped
+    ports:
+      - "4040:4040"
+    volumes:
+      # Persistir la base de datos SQLite fuera del contenedor
+      - db-data:/data
+    environment:
+      - PORT=4040
+      - NODE_ENV=production
+      - DATABASE_PATH=/data/database.sqlite
+
+  # ── Frontend: Vite build + Nginx ──
+  frontend:
+    build:
+      context: ./frontend-services
+      dockerfile: Dockerfile
+    container_name: service-app-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
+    driver: local

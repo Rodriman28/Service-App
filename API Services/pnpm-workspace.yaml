@@ -1,0 +1,2 @@
+allowBuilds:
+  '@thiagoelg/node-printer': set this to true or false

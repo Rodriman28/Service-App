@@ -1,49 +1,38 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const http = require("http");
+const socketIo = require("socket.io");
+const { initDatabase } = require("./config/database");
 const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-// Crear el servidor
+const PORT = process.env.PORT || 4040;
 const app = express();
-
-// Cors options
-const whitelist = ["http://192.168.1.80:3000"];
-const corsOptions = {
-  origin: (origin, callback) => {
-    const existe = whitelist.some((dominio) => dominio === origin);
-    if (existe) {
-      callback(null, true);
-    } else {
-      callback(new Error("No permitido por CORS"));
-    }
-  },
-};
-
-// Habilitar cors
-//app.use(cors());
-
-// Conectar a mongodb
-
-const urlMongo =
-  "mongodb+srv://admin:admin@cluster0.sdeye2z.mongodb.net/?retryWrites=true&w=majority";
-const urlZero = "mongodb://localhost/services";
-mongoose.Promise = global.Promise;
-mongoose.connect(urlMongo, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"]
+  }
 });
 
-// Habilitar el body-parser
+// Permitir CORS desde cualquier origen para facilitar el acceso en red local
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Habilitar routing
+// Inyectar io a las peticiones express para emitir eventos
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 app.use("/", routes());
 
-// Puerto y arrancar el servidor
-
-app.listen(4000, () => {
-  console.log("Servidor funcionando");
+initDatabase().then(() => {
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log("Servidor funcionando en puerto " + PORT);
+  });
+}).catch(err => {
+  console.error("Error al inicializar la base de datos:", err);
 });

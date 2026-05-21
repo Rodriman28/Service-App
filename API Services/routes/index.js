@@ -12,8 +12,13 @@ module.exports = function() {
         ingresosController.nuevoIngreso
     )
 
+    // Obtiene el total de ingresos
+    router.get('/ingresos/count',
+        ingresosController.contarIngresos
+    )
+
     // Obtiene todos los registros de la BD
-    router.get('/ingresos', 
+    router.get('/ingresos',
         ingresosController.obtenerIngresos
     )
     
